@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://buhk4d1h2hpby"]
 
-[ext_resource type="Script" path="res://Movement.gd" id="1_53hql"]
-[ext_resource type="Script" path="res://Player.gd" id="1_qjcbd"]
-[ext_resource type="Script" path="res://Input_Handler.gd" id="2_1e4h0"]
-[ext_resource type="Script" path="res://Jump_Handler.gd" id="2_afoj5"]
+[ext_resource type="Script" path="res://Scripts/Movement.gd" id="1_53hql"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_qjcbd"]
+[ext_resource type="Script" path="res://Scripts/Input_Handler.gd" id="2_1e4h0"]
+[ext_resource type="Script" path="res://Scripts/Jump_Handler.gd" id="2_afoj5"]
 [ext_resource type="Texture2D" uid="uid://vm2skw32cy15" path="res://icon.svg" id="5_mskud"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wai5g"]
