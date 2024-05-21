@@ -30,6 +30,11 @@ func handleMovement(player : Player, movementDirection : float, delta : float) -
 	if movementDirection == 0:#if player input !right/left
 		player.velocity.x = lerp(player.velocity.x, 0.0, deaccelerationSpeed * delta)#deaccelorate
 	#now foy y
+	handleTurnSpeed(player, delta)#when player moves in opposite direction of velocity.x, increase velocity
+	wallSliding(player, delta)#when moving into wall, moving down, and not on floor, slide down
+
+func handleMovementFB(player : Player, movementDirection : float, delta : float) -> void:#if player input right
+	#now foy y
 	if movementDirection < 0:
 		player.velocity.y = lerp(player.velocity.y, -maxSpeed, accelerationSpeed * delta)#accelerate right
 	
@@ -38,8 +43,9 @@ func handleMovement(player : Player, movementDirection : float, delta : float) -
 	
 	if movementDirection == 0:#if player input !right/left
 		player.velocity.y = lerp(player.velocity.y, 0.0, deaccelerationSpeed * delta)#deaccelorate
-	handleTurnSpeed(player, delta)#when player moves in opposite direction of velocity.x, increase velocity
+	handleTurnSpeedFB(player, delta)#when player moves in opposite direction of velocity.x, increase velocity
 	wallSliding(player, delta)#when moving into wall, moving down, and not on floor, slide down
+
 
 func jumpHangTime() -> void:#when apex reached decrease x speed
 	self.accelerationSpeed = jumpApexAccel * accelerationSpeed
@@ -58,6 +64,9 @@ func handleTurnSpeed(player : Player, delta : float) -> void:
 		player.velocity.x = lerp(player.velocity.x, -turnSpeed, turnRate * delta)
 	if player.velocity.x < 0 && input_handler.getPlayerMove() == 1 && !jump_handler.isWallJumping: #lefttoright
 		player.velocity.x = lerp(player.velocity.x, turnSpeed, turnRate * delta)
+		#now y
+	
+func handleTurnSpeedFB(player : Player, delta : float) -> void:
 		#now y
 	if player.velocity.y > 0 && input_handler.getPlayerMove() == -1 && !jump_handler.isWallJumping: #righttoleft
 		player.velocity.y = lerp(player.velocity.x, -turnSpeed, turnRate * delta)
