@@ -3,10 +3,10 @@ extends Node
 
 
 func getPlayerMove() -> float:
-	return Input.get_axis("Move Left", "Move Right") 
+	return Input.get_action_strength("Move Right") - Input.get_action_strength("Move Left")
 	
 func getPlayerMoveFB() -> float:
-	return Input.get_axis("Move Forward", "Move Back") 
+	return Input.get_action_strength("Move Back") - Input.get_action_strength("Move Forward")
 	
 
 

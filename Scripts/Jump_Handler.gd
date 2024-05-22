@@ -25,6 +25,7 @@ var isPreparingJump : bool
 var jumpBuff : float = .15
 var jumpBufferCounter : float
 
+"""
 func handleJump(player : Player, jumpPressed : bool, delta : float) -> void:
 	if player.is_on_floor() == true: #not Jumping
 		if itemCollected:
@@ -92,3 +93,4 @@ func jumpBuffer(player : Player, delta : float) -> void:
 		if jumpBufferCounter > jumpBuff:
 			isPreparingJump = false
 			jumpBufferCounter = 0
+"""

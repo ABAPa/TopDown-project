@@ -12,10 +12,9 @@ extends CharacterBody2D
 	#SignalBus.emitOnPlayerReady(self)
 func _physics_process(delta):
 	#GameManager.applyGravity(self, delta)
-	print(input_handler.getPlayerMove())
 	movement_handler.handleMovement(self, input_handler.getPlayerMove(), delta)
 	movement_handler.handleMovementFB(self, input_handler.getPlayerMoveFB(), delta)
-	jump_handler.handleJump(self, input_handler.getPlayerJump(), delta)
+	#jump_handler.handleJump(self, input_handler.getPlayerJump(), delta)
 	
 	velocity.normalized()
 	move_and_slide()
