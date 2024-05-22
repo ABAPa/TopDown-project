@@ -10,6 +10,7 @@
 height = 37.0
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 5
 position = Vector2(142, 124)
 script = ExtResource("1_qjcbd")
 
@@ -30,3 +31,5 @@ texture = ExtResource("5_mskud")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -9.5)
 shape = SubResource("CapsuleShape2D_wai5g")
+
+[node name="Camera2D" type="Camera2D" parent="."]
