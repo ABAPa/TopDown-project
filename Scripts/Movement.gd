@@ -2,75 +2,60 @@ class_name MovementHandler
 extends Node
 
 @export_category("Player Variables")
-@export var maxSpeed : float = 325.0
-@export var accelerationSpeed : float = 10
-@export var deaccelerationSpeed : float = 15
+@export var maxSpeed : float = 200
+@export var accelerationSpeed : float = 4.75
+@export var deaccelerationSpeed : float = 5.75
 
-@export var turnRate: float =20
-@export var turnSpeed: float =100
+@export_category("Player Roll")
+@export var rollSpeed : float = 100
+@export var rollaccel : float = 3
+@export var isRolling : bool = false
+var rollDuration : float = 20
 
-@export var jumpApexAccel : float = .75
-@export var jumpMaxAccel : float = 1
 
-@onready var input_handler = $"../Input_Handler" as InputHandler
-@onready var jump_handler = $"../Jump_Handler" as JumpHandler
+@onready var animatedSprite2D = $"../AnimatedSprite2D"
+@onready var input_handler = $"../Input_Handler"
 
-var timePassed : float
-var slideMinimum
 
-var slideSpeed : float = 500
+var movementVector = Vector2()
 
-func handleMovement(player : Player, movementDirection : float, delta : float) -> void:#if player input right
-	if movementDirection < 0:
-		player.velocity.x = lerp(player.velocity.x, -maxSpeed, accelerationSpeed * delta)#accelerate right
+func handleMovement(player : Player, movementDirection : float, movementDirectionFB : float, delta : float) -> void:
+	movementVector = Vector2(movementDirection, movementDirectionFB)
+	if movementVector.length() > 1:
+		movementVector = movementVector.normalized()
+
+	player.velocity.x = lerp(player.velocity.x, movementVector.x * maxSpeed, accelerationSpeed * delta)
+	player.velocity.y = lerp(player.velocity.y, movementVector.y * maxSpeed, accelerationSpeed * delta)
+
+	if movementVector.x != 0 && !isRolling:
+		isRolling = false
+		animatedSprite2D.flip_h = movementVector.x < 0
+		animatedSprite2D.play("run")
+	else:
+		player.velocity.x = lerp(player.velocity.x, 0.0, deaccelerationSpeed * delta) # Stop horizontal movement
+
+	if movementVector.y != 0 && !isRolling:
+		isRolling = false
+		animatedSprite2D.play("run")
+	else:
+		player.velocity.y = lerp(player.velocity.y, 0.0, deaccelerationSpeed * delta) # Stop vertical movement
+
+	if movementVector == Vector2.ZERO && !isRolling: #if player input !right/left
+		isRolling = false
+		animatedSprite2D.play("idle")
+	#print(player.velocity)
+
+func handleRoll(player : Player, movementDirection : float, movementDirectionFB : float, dodgeRoll : bool, delta : float) -> void:
+	movementVector = Vector2(movementDirection, movementDirectionFB).normalized()
 	
-	if movementDirection > 0:#if player input left
-		player.velocity.x = lerp(player.velocity.x, maxSpeed, accelerationSpeed * delta)#accelerate left
+	if dodgeRoll && !isRolling:
+		isRolling = true
+		animatedSprite2D.play("roll")
+		player.velocity = movementVector * rollSpeed
+		await get_tree().create_timer(rollDuration) # Assuming roll_duration is defined
+		isRolling = false
+	elif not isRolling:
+		handleMovement(player, movementDirection, movementDirectionFB, delta)
 	
-	if movementDirection == 0:#if player input !right/left
-		player.velocity.x = lerp(player.velocity.x, 0.0, deaccelerationSpeed * delta)#deaccelorate
-	#now foy y
-	#handleTurnSpeed(player, delta)#when player moves in opposite direction of velocity.x, increase velocity
-	#wallSliding(player, delta)#when moving into wall, moving down, and not on floor, slide down
-
-func handleMovementFB(player : Player, movementDirection : float, delta : float) -> void:#if player input right
-	#now foy y
-	print (movementDirection)
-	if movementDirection < 0:
-		player.velocity.y = lerp(player.velocity.y, -maxSpeed, accelerationSpeed * delta)#accelerate right
 	
-	if movementDirection > 0:#if player input left
-		player.velocity.y = lerp(player.velocity.y, maxSpeed, accelerationSpeed * delta)#accelerate left
 	
-	if movementDirection == 0:#if player input !right/left
-		player.velocity.y = lerp(player.velocity.y, 0.0, deaccelerationSpeed * delta)#deaccelorate
-	#handleTurnSpeedFB(player, delta)#when player moves in opposite direction of velocity.x, increase velocity
-	#wallSliding(player, delta)#when moving into wall, moving down, and not on floor, slide down
-
-"""
-func jumpHangTime() -> void:#when apex reached decrease x speed
-	self.accelerationSpeed = jumpApexAccel * accelerationSpeed
-	self.maxSpeed = maxSpeed * jumpMaxAccel
-
-func wallSliding(player : Player, delta : float)-> void:
-	if (!player.is_on_floor() && player.velocity.y > 0 && input_handler.getPlayerMove()) && player.is_on_wall():
-		timePassed += delta#increase weight over time on above conditions
-		slideMinimum = min(timePassed/ 2, 1 )
-		player.velocity.y = lerp(75, 700, slideMinimum)#accelerate slide speed
-			
-	else: timePassed = 0#reset timer
-
-func handleTurnSpeed(player : Player, delta : float) -> void:
-	if player.velocity.x > 0 && input_handler.getPlayerMove() == -1 && !jump_handler.isWallJumping: #righttoleft
-		player.velocity.x = lerp(player.velocity.x, -turnSpeed, turnRate * delta)
-	if player.velocity.x < 0 && input_handler.getPlayerMove() == 1 && !jump_handler.isWallJumping: #lefttoright
-		player.velocity.x = lerp(player.velocity.x, turnSpeed, turnRate * delta)
-		#now y
-	
-func handleTurnSpeedFB(player : Player, delta : float) -> void:
-		#now y
-	if player.velocity.y > 0 && input_handler.getPlayerMove() == -1 && !jump_handler.isWallJumping: #righttoleft
-		player.velocity.y = lerp(player.velocity.y, -turnSpeed, turnRate * delta)
-	if player.velocity.y < 0 && input_handler.getPlayerMove() == 1 && !jump_handler.isWallJumping: #lefttoright
-		player.velocity.y = lerp(player.velocity.y, turnSpeed, turnRate * delta)
-		"""
