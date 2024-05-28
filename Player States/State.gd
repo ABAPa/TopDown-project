@@ -2,6 +2,8 @@ extends Node
 class_name State
 
 signal Transitioned
+@export var canMove : bool
+@export var canDodge : bool
 
 func Enter():
 	pass

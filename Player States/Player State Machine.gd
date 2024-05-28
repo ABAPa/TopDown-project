@@ -24,6 +24,7 @@ func _process(delta):
 func _physics_process(delta):
 	if currentState:
 		currentState.PhysicsUpdate(delta)
+		print(currentState)
 
 func onChildTransition(state, newStateName):
 	if state != currentState:
@@ -38,3 +39,9 @@ func onChildTransition(state, newStateName):
 	newState.Enter()
 	
 	currentState = newState
+
+func checkIfCanMove():
+	return currentState.canMove
+
+func checkIfCanDodge():
+	return currentState.canDodge

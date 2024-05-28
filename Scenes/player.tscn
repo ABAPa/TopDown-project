@@ -1,12 +1,13 @@
-[gd_scene load_steps=38 format=3 uid="uid://buhk4d1h2hpby"]
+[gd_scene load_steps=39 format=3 uid="uid://buhk4d1h2hpby"]
 
 [ext_resource type="Script" path="res://Scripts/Movement.gd" id="1_53hql"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_qjcbd"]
 [ext_resource type="Script" path="res://Scripts/Input_Handler.gd" id="2_1e4h0"]
 [ext_resource type="Texture2D" uid="uid://bb6gnrukv5un8" path="res://Test Assets/knight.png" id="5_7deiv"]
-[ext_resource type="Script" path="res://Scenes/Player State Machine.gd" id="6_uatkr"]
+[ext_resource type="Script" path="res://Player States/Player State Machine.gd" id="5_i13w0"]
+[ext_resource type="Script" path="res://Player States/PlayerRun.gd" id="7_dxtb1"]
 [ext_resource type="Script" path="res://Player States/PlayerIdle.gd" id="7_h2qu1"]
-[ext_resource type="Script" path="res://Scenes/PlayerRun.gd" id="7_iynuc"]
+[ext_resource type="Script" path="res://Player States/PlayerDodgeRoll.gd" id="8_y22sx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gtup7"]
 atlas = ExtResource("5_7deiv")
@@ -164,7 +165,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bw02t")
 }],
-"loop": true,
+"loop": false,
 "name": &"roll",
 "speed": 10.0
 }, {
@@ -252,13 +253,21 @@ zoom = Vector2(3, 3)
 script = ExtResource("2_1e4h0")
 
 [node name="Player State Machine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
-script = ExtResource("6_uatkr")
+script = ExtResource("5_i13w0")
 initialState = NodePath("PlayerIdle")
 
-[node name="PlayerIdle" type="Node" parent="Player State Machine"]
+[node name="PlayerIdle" type="Node" parent="Player State Machine" node_paths=PackedStringArray("player")]
 script = ExtResource("7_h2qu1")
+player = NodePath("../..")
+canMove = true
+canDodge = true
 
-[node name="PlayerRun" type="Node" parent="Player State Machine"]
-script = ExtResource("7_iynuc")
+[node name="PlayerRun" type="Node" parent="Player State Machine" node_paths=PackedStringArray("player")]
+script = ExtResource("7_dxtb1")
+player = NodePath("../..")
+canMove = true
+canDodge = true
 
-[node name="PlayerDodgeRoll" type="Node" parent="Player State Machine"]
+[node name="PlayerDodgeRoll" type="Node" parent="Player State Machine" node_paths=PackedStringArray("player")]
+script = ExtResource("8_y22sx")
+player = NodePath("../..")
