@@ -8,9 +8,14 @@ class_name PlayerDodgeRoll
 
 var movementVector = Vector2()
 var dodgeRoll : bool
-var dodgeSpeed : float = 20
-var dodgeDeAccel : float = 5
-var maxDodgeSpeed : float = 250
+
+@export_category("Dodge Roll Rates")
+@export var dodgeSpeed : float = 60
+@export var dodgeDeAccel : float = 5
+
+@export_category("Dodge Roll Speeds")
+@export var maxDeAccel : float = 70
+@export var maxDodgeSpeed : float = 250
 var mouseDirectionVector : Vector2
 
 var rollTimeout = true
@@ -20,11 +25,11 @@ func Enter():
 
 func PhysicsUpdate(delta : float):
 	handleDodgeRoll(delta)
-	print(mouseDirectionVector)
 
 
 func handleDodgeRoll(delta : float):
-	if dodgeRoll&& rollTimeout:
+	if dodgeRoll && rollTimeout:
+		player.velocity = Vector2.ZERO
 		rollTimeout = false
 		var viewportCenter = Vector2(get_viewport().size) / 2
 		mouseDirectionVector = get_viewport().get_mouse_position() - viewportCenter
@@ -33,7 +38,7 @@ func handleDodgeRoll(delta : float):
 		animatedSprite2D.play("roll")
 		await get_tree().create_timer(0.5).timeout
 		rollTimeout = true
-		player.velocity = lerp(player.velocity, mouseDirectionVector.normalized() * 60, dodgeDeAccel * delta)
+		player.velocity = lerp(player.velocity, mouseDirectionVector.normalized() * maxDeAccel, dodgeDeAccel * delta)
 		dodgeRoll = false
 		
 		if movementVector.length() > 0:
