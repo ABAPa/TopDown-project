@@ -40,9 +40,9 @@ func _ready():
 	await get_tree().create_timer(0.1).timeout
 	ZFloors.erase(0)
 func _process(delta):
-	if playerZ <= areaZHieght && isntBehindPlatform:
-		player.z_index = 1
-	else: player.z_index = -1
+	if playerZ <= areaZHieght:
+		player.z_index = 6
+	else: player.z_index = 5
 	#print(playerZ, " playerZ", ZFloors.min(), " ZFloors", isOnPlatform)
 	print(ZFloor)
 	if isOnStairs: 
