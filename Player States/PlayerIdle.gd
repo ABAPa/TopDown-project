@@ -8,6 +8,7 @@ class_name PlayerIdle
 @export var player : CharacterBody2D
 @onready var player_dodge_roll = $"../PlayerDodgeRoll"
 @onready var player_attack = $"../PlayerAttack"
+@onready var player_jump = $"../PlayerJump"
 
 var movementVector = Vector2()
 
@@ -34,3 +35,6 @@ func handleIdleSwitch():
 		else: Transitioned.emit(self, "PlayerDodgeRoll")
 	if input_handler.getPlayerAttack() && player_state_machine.checkIfCanAttack():
 		Transitioned.emit(self, "PlayerAttack")
+	if input_handler.getPlayerJump() && player_state_machine.checkIfCanJump():
+		player_jump.hasJumped = true
+		Transitioned.emit(self, "PlayerJump")

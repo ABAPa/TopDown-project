@@ -1,6 +1,7 @@
 extends Node
 
 @export var initialState : State
+@onready var player_jump = $PlayerJump
 
 var currentState : State
 var states : Dictionary = {}
@@ -25,6 +26,7 @@ func _process(delta):
 func _physics_process(delta):
 	if currentState:
 		currentState.PhysicsUpdate(delta)
+	player_jump.platform_Check()
 
 func onChildTransition(state, newStateName):
 	if state != currentState:
@@ -48,3 +50,6 @@ func checkIfCanDodge():
 
 func checkIfCanAttack():
 	return currentState.canAttack
+
+func checkIfCanJump():
+	return currentState.canJump

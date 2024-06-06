@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cfl7vwt1k20yv"]
+[gd_scene load_steps=22 format=3 uid="uid://cfl7vwt1k20yv"]
 
 [ext_resource type="PackedScene" uid="uid://buhk4d1h2hpby" path="res://Scenes/player.tscn" id="1_esbgi"]
 [ext_resource type="Texture2D" uid="uid://bdm2n3rx6y5yu" path="res://Test Assets/Texture/TX Tileset Grass.png" id="2_8voxo"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://bhywsuw77ltko" path="res://Test Assets/Texture/TX Props.png" id="6_ij2nl"]
 [ext_resource type="Texture2D" uid="uid://tl7t5hqpeu6k" path="res://Test Assets/Texture/TX Struct.png" id="7_e3rqr"]
 [ext_resource type="PackedScene" uid="uid://cgqo3vv50wds5" path="res://Scenes/test_enemy.tscn" id="8_is1k6"]
+[ext_resource type="Script" path="res://Scenes/Area2D2.gd" id="9_jqwwc"]
+[ext_resource type="Script" path="res://Scenes/Area2D.gd" id="10_gc2tv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n53xj"]
 texture = ExtResource("2_8voxo")
@@ -451,8 +453,19 @@ sources/10 = SubResource("TileSetAtlasSource_n53xj")
 sources/11 = SubResource("TileSetAtlasSource_powcj")
 sources/12 = SubResource("TileSetAtlasSource_g8acs")
 
+[sub_resource type="GDScript" id="GDScript_kgx7s"]
+script/source = "extends \"res://Area Scripts/TileMapZSort.gd\"
+
+"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v20yc"]
 size = Vector2(58, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mjklk"]
+size = Vector2(160, 59)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lcc35"]
+size = Vector2(173, 86)
 
 [node name="World" type="Node2D"]
 
@@ -465,18 +478,31 @@ layer_1/name = "stone"
 layer_1/tile_data = PackedInt32Array(-65536, 262155, 6, 0, 262155, 7, -65535, 327691, 6, 1, 327691, 7, -65534, 262155, 6, 2, 262155, 7, -65533, 327691, 6, 3, 327691, 7, -65532, 262155, 6, 4, 262155, 7, -65531, 327691, 6, 5, 327691, 7, -65530, 262155, 6, 6, 262155, 7, -65529, 327691, 6, 7, 327691, 7, -65528, 262155, 6, 8, 262155, 7, -65527, 327691, 6, 9, 327691, 7)
 layer_2/name = "grass ontop"
 layer_2/z_index = 6
-layer_2/tile_data = PackedInt32Array(262155, 196618, 2, 327691, 196618, 3, 262156, 262154, 2, 327692, 262154, 3)
+layer_2/tile_data = PackedInt32Array(262155, 196618, 2, 327691, 196618, 3, 262156, 262154, 2, 327692, 262154, 3, 262142, 196618, 3, 196606, 393226, 3, 131070, 196618, 2, 131069, 458762, 2, 131068, 65546, 3, 196605, 131082, 0, 262141, 131082, 3, 262140, 393226, 1, 196604, 65546, 3, 131067, 65546, 1, 196603, 131082, 2, 262139, 131082, 0, 65531, 65546, 2, -5, 262154, 2, -65541, 262154, 0, -65542, 10, 3, -65543, 65546, 2, -65544, 131082, 2, -65545, 262154, 3, -9, 10, 0, 65527, 65546, 2, -8, 327690, 2, -7, 10, 1, -6, 196618, 3, 65528, 393226, 1, 65529, 196618, 2, 65530, 10, 2, 131063, 262154, 1, 131064, 131082, 2, 131065, 196618, 0, 131066, 458762, 3, 196602, 327690, 1, 196601, 262154, 1, 196600, 65546, 0, 196599, 196618, 1, 262135, 327690, 1, 262136, 262154, 2, 262137, 458762, 3, 262138, 327690, 2)
 layer_3/name = "wall infront"
 layer_3/z_index = 6
-layer_3/tile_data = PackedInt32Array(-65536, 851977, 4, 0, 851977, 5, -65535, 917513, 4, 1, 917513, 5, -65534, 851977, 4, 2, 851977, 5, -65533, 917513, 4, 3, 917513, 5, -65532, 851977, 4, 4, 851977, 5, -65531, 917513, 4, 5, 917513, 5, -65530, 851977, 4, 6, 851977, 5, -65529, 917513, 4, 7, 917513, 5, -65528, 851977, 4, 8, 851977, 5, -65527, 917513, 4, 9, 917513, 5, -131072, 11, 3, -131071, 65547, 3, -131070, 65547, 3, -131069, 65547, 3, -131068, 65547, 3, -131067, 65547, 3, -131066, 65547, 3, -131065, 65547, 3, -131064, 65547, 3, -131063, 131083, 3, -196608, 11, 3, -196607, 65547, 3, -196606, 65547, 3, -196605, 65547, 3, -196604, 65547, 3, -196603, 65547, 3, -196602, 65547, 3, -196601, 65547, 3, -196600, 65547, 3, -196599, 131083, 3, 262155, 786444, 2, 327691, 786444, 3, 393227, 786444, 4, 262156, 851980, 2, 327692, 851980, 3, 393228, 851980, 4)
+layer_3/tile_data = PackedInt32Array(-65536, 851977, 4, 0, 851977, 5, -65535, 917513, 4, 1, 917513, 5, -65534, 851977, 4, 2, 851977, 5, -65533, 917513, 4, 3, 917513, 5, -65532, 851977, 4, 4, 851977, 5, -65531, 917513, 4, 5, 917513, 5, -65530, 851977, 4, 6, 851977, 5, -65529, 917513, 4, 7, 917513, 5, -65528, 851977, 4, 8, 851977, 5, -65527, 917513, 4, 9, 917513, 5, -131072, 11, 3, -131071, 65547, 3, -131070, 65547, 3, -131069, 65547, 3, -131068, 65547, 3, -131067, 65547, 3, -131066, 65547, 3, -131065, 65547, 3, -131064, 65547, 3, -131063, 131083, 3, -196608, 11, 3, -196607, 65547, 3, -196606, 65547, 3, -196605, 65547, 3, -196604, 65547, 3, -196603, 65547, 3, -196602, 65547, 3, -196601, 65547, 3, -196600, 65547, 3, -196599, 131083, 3, 262155, 786444, 2, 327691, 786444, 3, 393227, 786444, 4, 262156, 851980, 2, 327692, 851980, 3, 393228, 851980, 4, 327671, 65548, 3, 393207, 65548, 4, 327672, 262153, 5, 393208, 262153, 6, 327673, 327689, 5, 393209, 327689, 6, 327676, 262156, 6, 327677, 196620, 6, 393213, 196620, 7, 327678, 196620, 3, 393214, 196620, 4, 131063, 589836, 1, 196599, 589836, 2, 262135, 589836, 3, -65545, 65548, 1, -9, 589836, 2, 65527, 589836, 3, -65541, 196620, 1, -65544, 786444, 1, -65543, 851980, 1, -65542, 917516, 1, -5, 655372, 1, 65531, 655372, 2, 131070, 196620, 1, 131068, 851980, 1, 131069, 917516, 1, 196606, 655372, 2, 262142, 655372, 3, 327674, 131084, 6, 393210, 131084, 7, 327675, 196620, 6, 393211, 196620, 7, 393212, 262156, 7, 458744, 262153, 7, 458745, 327689, 7)
 layer_4/name = "wall behind"
 layer_4/z_index = 4
-layer_4/tile_data = PackedInt32Array(65536, 262156, 9, 131072, 262156, 10, 65537, 327692, 9, 131073, 327692, 10, 65539, 327692, 9, 131075, 327692, 10, 65540, 851977, 4, 131076, 851977, 5, 65538, 262156, 9, 131074, 262156, 10, 65541, 917513, 4, 131077, 917513, 5, 65542, 262156, 9, 131078, 262156, 10, 65543, 262156, 9, 131079, 262156, 10, 65544, 262156, 9, 131080, 262156, 10, 65545, 327692, 9, 131081, 327692, 10, 0, 11, 3, 1, 65547, 3, 2, 65547, 3, 3, 65547, 3, 4, 65547, 3, 5, 65547, 3, 6, 65547, 3, 7, 65547, 3, 8, 65547, 3, 9, 131083, 3)
+layer_4/tile_data = PackedInt32Array(0, 11, 3, 1, 65547, 3, 2, 65547, 3, 3, 65547, 3, 4, 65547, 3, 5, 65547, 3, 6, 65547, 3, 7, 65547, 3, 8, 65547, 3, 9, 131083, 3)
 layer_5/name = "grass"
 layer_5/z_index = 5
 layer_5/tile_data = PackedInt32Array()
+layer_6/name = "box"
+layer_6/z_index = 7
+layer_6/tile_data = PackedInt32Array(131064, 65544, 1, 131065, 65544, 1, 131066, 65544, 1, 65528, 65544, 0, 65529, 65544, 0, 65530, 65544, 0)
+layer_7/name = "stone"
+layer_7/z_index = 8
+layer_7/tile_data = PackedInt32Array(65529, 589832, 10, -7, 589832, 9)
+
+[node name="Area2D" type="Area2D" parent="TileMap"]
+script = SubResource("GDScript_kgx7s")
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="TileMap/Area2D"]
+polygon = PackedVector2Array(-288, 192, -32, 192, -32, 32, -33, 32, -128, 32, -128, -64, -288, -64)
 
 [node name="Player" parent="." instance=ExtResource("1_esbgi")]
+position = Vector2(108, 126)
 
 [node name="Test Enemy" parent="." instance=ExtResource("8_is1k6")]
 position = Vector2(364, 107)
@@ -492,3 +518,32 @@ light_mask = 3
 visibility_layer = 3
 position = Vector2(385, 192.5)
 shape = SubResource("RectangleShape2D_v20yc")
+
+[node name="triggers" type="Node" parent="."]
+
+[node name="Area2D2" type="Area2D" parent="triggers"]
+script = ExtResource("9_jqwwc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="triggers/Area2D2"]
+polygon = PackedVector2Array(-128, -64, -128, 32, -32, 32, -32, 191, 302, 191, 302, 40, 10, 40, 10, -138, -379, -138, -379, 340, 302, 341, 302, 192, -192, 192, -192, 224, -256, 224, -256, 192, -288, 192, -288, -64)
+
+[node name="Area2D" type="Area2D" parent="triggers"]
+script = ExtResource("10_gc2tv")
+ZHeight = -60.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="triggers/Area2D"]
+polygon = PackedVector2Array(-288, 133, -32, 133, -32, 32, -33, 32, -128, 32, -128, -64, -288, -64)
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Node"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node/Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/Area2D/StaticBody2D"]
+position = Vector2(-112, 162.5)
+shape = SubResource("RectangleShape2D_mjklk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/Area2D"]
+position = Vector2(-112.5, 160)
+shape = SubResource("RectangleShape2D_lcc35")

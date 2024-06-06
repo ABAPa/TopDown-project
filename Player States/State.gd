@@ -5,6 +5,7 @@ signal Transitioned
 @export var canMove : bool
 @export var canDodge : bool
 @export var canAttack : bool
+@export var canJump : bool
 
 func Enter():
 	pass

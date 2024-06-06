@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://buhk4d1h2hpby"]
+[gd_scene load_steps=62 format=3 uid="uid://buhk4d1h2hpby"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_qjcbd"]
 [ext_resource type="Script" path="res://Scripts/Input_Handler.gd" id="2_1e4h0"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://Player States/PlayerIdle.gd" id="7_h2qu1"]
 [ext_resource type="Script" path="res://Player States/PlayerAttack.gd" id="8_utxya"]
 [ext_resource type="Script" path="res://Player States/PlayerDodgeRoll.gd" id="8_y22sx"]
+[ext_resource type="Script" path="res://Player States/PlayerJump.gd" id="15_sd326"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sfyid"]
 atlas = ExtResource("2_qtg06")
@@ -397,36 +398,43 @@ player = NodePath("..")
 [node name="Input_Handler" type="Node" parent="."]
 script = ExtResource("2_1e4h0")
 
-[node name="Player State Machine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
 script = ExtResource("5_i13w0")
 initialState = NodePath("PlayerIdle")
 
-[node name="PlayerIdle" type="Node" parent="Player State Machine" node_paths=PackedStringArray("player")]
+[node name="PlayerIdle" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("7_h2qu1")
 player = NodePath("../..")
 canMove = true
 canDodge = true
 canAttack = true
+canJump = true
 
-[node name="PlayerRun" type="Node" parent="Player State Machine" node_paths=PackedStringArray("player")]
+[node name="PlayerRun" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("7_dxtb1")
 player = NodePath("../..")
 canMove = true
 canDodge = true
 canAttack = true
+canJump = true
 
-[node name="PlayerDodgeRoll" type="Node" parent="Player State Machine" node_paths=PackedStringArray("player")]
+[node name="PlayerDodgeRoll" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("8_y22sx")
 player = NodePath("../..")
 canAttack = true
 
-[node name="RollCooldown" type="Timer" parent="Player State Machine/PlayerDodgeRoll"]
+[node name="RollCooldown" type="Timer" parent="PlayerStateMachine/PlayerDodgeRoll"]
 wait_time = 0.75
 one_shot = true
 
-[node name="PlayerAttack" type="Node" parent="Player State Machine" node_paths=PackedStringArray("player")]
+[node name="PlayerAttack" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("8_utxya")
 player = NodePath("../..")
 canMove = true
 
-[connection signal="timeout" from="Player State Machine/PlayerDodgeRoll/RollCooldown" to="Player State Machine/PlayerDodgeRoll" method="_on_roll_cooldown_timeout"]
+[node name="PlayerJump" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("15_sd326")
+player = NodePath("../..")
+canMove = true
+
+[connection signal="timeout" from="PlayerStateMachine/PlayerDodgeRoll/RollCooldown" to="PlayerStateMachine/PlayerDodgeRoll" method="_on_roll_cooldown_timeout"]

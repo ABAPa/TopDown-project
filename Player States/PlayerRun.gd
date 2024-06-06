@@ -13,6 +13,7 @@ class_name PlayerRun
 var movementVector = Vector2()
 @onready var player_dodge_roll = $"../PlayerDodgeRoll"
 @onready var player_attack = $"../PlayerAttack"
+@onready var player_jump = $"../PlayerJump"
 
 func PhysicsUpdate(delta : float):
 	handleMovement(input_handler.getPlayerMove(), input_handler.getPlayerMoveFB(), delta)
@@ -47,6 +48,9 @@ func handleMovementSwitch():
 		else: Transitioned.emit(self, "PlayerDodgeRoll")
 	if input_handler.getPlayerAttack() && player_state_machine.checkIfCanAttack():
 		Transitioned.emit(self, "PlayerAttack")
+	if input_handler.getPlayerJump() && player_state_machine.checkIfCanJump():
+		player_jump.hasJumped = true
+		Transitioned.emit(self, "PlayerJump")
 
 func movementAnimations():
 	if movementVector.y == 1:
