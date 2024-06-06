@@ -9,15 +9,12 @@ class_name PlayerRun
 @onready var player_state_machine = $".."
 @onready var input_handler = $"../../Input_Handler"
 @onready var animatedSprite2D = $"../../AnimatedSprite2D"
-var movementVector = Vector2()
 @export var player : CharacterBody2D
-
-func Enter():
-	player = get_tree().get_first_node_in_group("Player")
+var movementVector = Vector2()
+@onready var player_dodge_roll = $"../PlayerDodgeRoll"
+@onready var player_attack = $"../PlayerAttack"
 
 func PhysicsUpdate(delta : float):
-	if input_handler.getPlayerRoll() && player_state_machine.checkIfCanDodge():
-		Transitioned.emit(self, "PlayerDodgeRoll")
 	handleMovement(input_handler.getPlayerMove(), input_handler.getPlayerMoveFB(), delta)
 
 func handleMovement(movementDirection : float, movementDirectionFB : float, delta : float) -> void:
@@ -30,15 +27,33 @@ func handleMovement(movementDirection : float, movementDirectionFB : float, delt
 	
 	if movementVector.x != 0:
 		animatedSprite2D.flip_h = movementVector.x < 0
-		animatedSprite2D.play("run")
+		movementAnimations()
 	else:
 		player.velocity.x = lerp(player.velocity.x, 0.0, deaccelerationSpeed * delta) # Stop horizontal movement
 	
 	# add another if condition here when you get more animations for the 8 directions (same goes for above)
 	if movementVector.y != 0:
-		animatedSprite2D.play("run")
+		movementAnimations()
 	else:
 		player.velocity.y = lerp(player.velocity.y, 0.0, deaccelerationSpeed * delta) # Stop vertical movement
-	
+	handleMovementSwitch()
+
+func handleMovementSwitch():
 	if movementVector == Vector2.ZERO: #if player input !right/left
 		Transitioned.emit(self, "PlayerIdle")
+	if input_handler.getPlayerRoll() && player_state_machine.checkIfCanDodge():
+		if player_dodge_roll.dodgeReady == false:
+			return
+		else: Transitioned.emit(self, "PlayerDodgeRoll")
+	if input_handler.getPlayerAttack() && player_state_machine.checkIfCanAttack():
+		Transitioned.emit(self, "PlayerAttack")
+
+func movementAnimations():
+	if movementVector.y == 1:
+		animatedSprite2D.play("down run")
+	if movementVector.y == -1:
+		animatedSprite2D.play("up run")
+	if movementVector.x == 1:
+		animatedSprite2D.play("side run")
+	if movementVector.x == -1:
+		animatedSprite2D.play("side run")

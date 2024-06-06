@@ -7,6 +7,7 @@ class_name PlayerIdle
 @onready var player_run = $"../PlayerRun"
 @export var player : CharacterBody2D
 @onready var player_dodge_roll = $"../PlayerDodgeRoll"
+@onready var player_attack = $"../PlayerAttack"
 
 var movementVector = Vector2()
 
@@ -24,5 +25,12 @@ func handleIdle(delta : float):
 	elif movementVector.length() == 0:
 		player.velocity.x = lerp(player.velocity.x, 0.0, player_run.deaccelerationSpeed * delta)
 		player.velocity.y = lerp(player.velocity.y, 0.0, player_run.deaccelerationSpeed * delta)
+	handleIdleSwitch()
+
+func handleIdleSwitch():
 	if input_handler.getPlayerRoll() && player_state_machine.checkIfCanDodge():
-		Transitioned.emit(self, "PlayerDodgeRoll")
+		if player_dodge_roll.dodgeReady == false:
+			return
+		else: Transitioned.emit(self, "PlayerDodgeRoll")
+	if input_handler.getPlayerAttack() && player_state_machine.checkIfCanAttack():
+		Transitioned.emit(self, "PlayerAttack")

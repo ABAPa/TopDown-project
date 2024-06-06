@@ -1,10 +1,7 @@
 extends Node
-class_name State
+class_name EnemyState
 
-signal Transitioned
-@export var canMove : bool
-@export var canDodge : bool
-@export var canAttack : bool
+signal EnemyTransitioned
 
 func Enter():
 	pass

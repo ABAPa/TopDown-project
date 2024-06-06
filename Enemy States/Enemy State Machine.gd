@@ -1,16 +1,16 @@
 extends Node
 
-@export var initialState : State
+@export var initialState : EnemyState
 
-var currentState : State
+var currentState : EnemyState
 var states : Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for child in get_children():
-		if child is State:
+		if child is EnemyState:
 			states[child.name.to_lower()] = child
-			child.Transitioned.connect(onChildTransition)
+			child.EnemyTransitioned.connect(onChildTransition)
 	
 	if initialState:
 		initialState.Enter()
@@ -20,7 +20,6 @@ func _ready():
 func _process(delta):
 	if currentState:
 		currentState.Update(delta)
-	#print(currentState)
 
 func _physics_process(delta):
 	if currentState:
@@ -39,12 +38,3 @@ func onChildTransition(state, newStateName):
 	newState.Enter()
 	
 	currentState = newState
-
-func checkIfCanMove():
-	return currentState.canMove
-
-func checkIfCanDodge():
-	return currentState.canDodge
-
-func checkIfCanAttack():
-	return currentState.canAttack
