@@ -44,7 +44,7 @@ func _process(delta):
 		player.z_index = 6
 	else: player.z_index = 5
 	#print(playerZ, " playerZ", ZFloors.min(), " ZFloors", isOnPlatform)
-	print(ZFloor)
+	#print(ZFloor)
 	if isOnStairs: 
 		body_Position_On_Strairs(player, totalHeight, globalPosition, ZTop, ZBottom)
 	if isInArea == true:
@@ -77,7 +77,7 @@ func platform_Check():
 		newMaxJumpHiegt = ZFloors.min() + maxJumpHiegt
 		change_States()
 	elif playerZ <= newMaxJumpHiegt or ZFall == true or isOnPlatform == false && hasJumped == false: 
-		print("fdssdf")
+		#print("fdssdf")
 		hasJumped = false
 		ZFall = true
 		playerZ += ZGravity
@@ -97,7 +97,7 @@ func body_Position_On_Strairs (body, totalHeight, globalPosition, ZTop, ZBottom)
 		return bodyZ
 
 func _area_sides():
-	print(playerZ )
+	#print(playerZ )
 	if playerZ > areaZHieght && not player.velocity.x == 0 && not isOnStairs && playerZ < ZFloor:
 		player.velocity.x = -player.velocity.x /1.5
 	if playerZ > areaZHieght && not player.velocity.y == 0 && not isOnStairs && playerZ < ZFloor:
