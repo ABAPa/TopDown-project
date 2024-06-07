@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://buhk4d1h2hpby"]
+[gd_scene load_steps=63 format=3 uid="uid://buhk4d1h2hpby"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_qjcbd"]
 [ext_resource type="Script" path="res://Scripts/Input_Handler.gd" id="2_1e4h0"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://Player States/PlayerIdle.gd" id="7_h2qu1"]
 [ext_resource type="Script" path="res://Player States/PlayerAttack.gd" id="8_utxya"]
 [ext_resource type="Script" path="res://Player States/PlayerDodgeRoll.gd" id="8_y22sx"]
+[ext_resource type="PackedScene" uid="uid://cp36hcddk8sjg" path="res://Test Assets/Button Assets/control.tscn" id="9_6duj2"]
 [ext_resource type="Script" path="res://Player States/PlayerJump.gd" id="15_sd326"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sfyid"]
@@ -394,6 +395,15 @@ shape = SubResource("CircleShape2D_svqt7")
 zoom = Vector2(3, 3)
 script = ExtResource("4_jde48")
 player = NodePath("..")
+
+[node name="BoxContainer" type="BoxContainer" parent="Camera2D"]
+offset_left = -191.0
+offset_top = -107.0
+offset_right = 191.0
+offset_bottom = 108.0
+
+[node name="Control" parent="Camera2D/BoxContainer" instance=ExtResource("9_6duj2")]
+layout_mode = 2
 
 [node name="Input_Handler" type="Node" parent="."]
 script = ExtResource("2_1e4h0")
