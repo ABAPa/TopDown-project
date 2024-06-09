@@ -20,7 +20,7 @@ var hasJumped : bool = false #has jumped, has not reached jump apex yet
 var isOnStairs : bool = false #is on stairs trigger area2d
 var areaZHieght : float # the Zhieght of the whole area (building or platform) a player is in the area2d of
 
-var isntBehindPlatform : bool = false #if player is behind or on top of the whole area they are in
+var isBehindPlatform : bool = false #if player is behind or on top of the whole area they are in
 var isInArea : bool
 
 var colliderBody : RID 
@@ -40,7 +40,7 @@ func _ready():
 	await get_tree().create_timer(0.1).timeout
 	ZFloors.erase(0)
 func _process(delta):
-	if playerZ <= areaZHieght:
+	if playerZ <= areaZHieght && isOnPlatform == true or isInColliderArea == true && not isBehindPlatform:
 		player.z_index = 6
 	else: player.z_index = 5
 	#print(playerZ, " playerZ", ZFloors.min(), " ZFloors", isOnPlatform)

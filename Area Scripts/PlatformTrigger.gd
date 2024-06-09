@@ -11,7 +11,6 @@ func on_platform(body):
 	if body.name in boddiesInScene:
 		var child = body.get_node("PlayerStateMachine/PlayerJump")
 		if child.playerZ <= ZHeight:
-			child.isntBehindPlatform = true
 			if !child.ZFloors.has(ZHeight): 
 				child.ZFloors.append(ZHeight)
 			child.ZFloor = ZHeight      
@@ -19,6 +18,5 @@ func off_platform(body):
 	if body.name in boddiesInScene: 
 		var child = body.get_node("PlayerStateMachine/PlayerJump")
 		if child.playerZ <= ZHeight:
-			child.isntBehindPlatform = false
 			child.ZFloors.erase(ZHeight)
 

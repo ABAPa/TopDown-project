@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cfl7vwt1k20yv"]
+[gd_scene load_steps=23 format=3 uid="uid://cfl7vwt1k20yv"]
 
 [ext_resource type="PackedScene" uid="uid://buhk4d1h2hpby" path="res://Scenes/player.tscn" id="1_esbgi"]
 [ext_resource type="Texture2D" uid="uid://bdm2n3rx6y5yu" path="res://Test Assets/Texture/TX Tileset Grass.png" id="2_8voxo"]
@@ -461,11 +461,16 @@ script/source = "extends \"res://Area Scripts/TileMapZSort.gd\"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v20yc"]
 size = Vector2(58, 61)
 
+[sub_resource type="GDScript" id="GDScript_c8fwj"]
+script/source = "extends \"res://Area Scripts/PlatformCollider.gd\"
+
+"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mjklk"]
-size = Vector2(160, 59)
+size = Vector2(160, 101)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lcc35"]
-size = Vector2(173, 86)
+size = Vector2(186, 126)
 
 [node name="World" type="Node2D"]
 
@@ -496,7 +501,9 @@ layer_7/z_index = 8
 layer_7/tile_data = PackedInt32Array(65529, 589832, 10, -7, 589832, 9)
 
 [node name="Area2D" type="Area2D" parent="TileMap"]
+visible = false
 script = SubResource("GDScript_kgx7s")
+areaZHieght = -60.0
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="TileMap/Area2D"]
 polygon = PackedVector2Array(-288, 192, -32, 192, -32, 32, -33, 32, -128, 32, -128, -64, -288, -64)
@@ -525,25 +532,27 @@ shape = SubResource("RectangleShape2D_v20yc")
 script = ExtResource("9_jqwwc")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="triggers/Area2D2"]
-polygon = PackedVector2Array(-128, -64, -128, 32, -32, 32, -32, 341, 512, 341, 510, 40, 10, 40, 10, -138, -379, -138, -379, 340, -34, 341, -34, 192, -192, 192, -192, 224, -256, 224, -256, 192, -288, 192, -288, -64)
+polygon = PackedVector2Array(-128, -64, -128, 91, -32, 91, -32, 341, 512, 341, 510, 40, 10, 40, 10, -138, -379, -138, -379, 340, -34, 341, -34, 192, -192, 192, -192, 224, -256, 224, -256, 192, -288, 192, -288, -64)
 
 [node name="Area2D" type="Area2D" parent="triggers"]
 script = ExtResource("10_gc2tv")
 ZHeight = -60.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="triggers/Area2D"]
-polygon = PackedVector2Array(-288, 133, -32, 133, -32, 32, -33, 32, -128, 32, -128, -64, -288, -64)
+polygon = PackedVector2Array(-288, 118, -32, 118, -32, 32, -32, 32, -128, 32, -128, -64, -288, -64)
 
 [node name="Node" type="Node" parent="."]
 
 [node name="Area2D" type="Area2D" parent="Node"]
+script = SubResource("GDScript_c8fwj")
+colliderZ = -60.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Node/Area2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node/Area2D/StaticBody2D"]
-position = Vector2(-112, 162.5)
+position = Vector2(-112, 141.5)
 shape = SubResource("RectangleShape2D_mjklk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node/Area2D"]
-position = Vector2(-112.5, 160)
+position = Vector2(-112, 140)
 shape = SubResource("RectangleShape2D_lcc35")

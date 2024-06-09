@@ -7,7 +7,7 @@ var collider
 func _ready():
 	connect("body_entered", Callable(self, "on_collider"))
 	connect("body_exited", Callable(self, "off_collider"))
-	collider = get_node("Collider")
+	collider = self.get_child(0)
 func on_collider(body):
 	if body.name in boddiesInScene:
 		var child = body.get_node("PlayerStateMachine/PlayerJump")
@@ -19,5 +19,5 @@ func off_collider(body):
 	if body.name in boddiesInScene:
 		var child = body.get_node("PlayerStateMachine/PlayerJump")
 		# Send the constant to the body's script
-		if child.playerZ >= colliderZ:
-			PhysicsServer2D.body_remove_collision_exception(collider.get_rid(), body.get_rid())
+		PhysicsServer2D.body_remove_collision_exception(collider.get_rid(), body.get_rid())
+		child.isInColliderArea = false
