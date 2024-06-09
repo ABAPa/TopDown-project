@@ -40,7 +40,7 @@ func _ready():
 	await get_tree().create_timer(0.1).timeout
 	ZFloors.erase(0)
 func _process(delta):
-	if playerZ <= areaZHieght && isOnPlatform == true or isInColliderArea == true && not isBehindPlatform:
+	if playerZ <= areaZHieght or isInColliderArea == true && not isBehindPlatform:
 		player.z_index = 6
 	else: player.z_index = 5
 	#print(playerZ, " playerZ", ZFloors.min(), " ZFloors", isOnPlatform)
@@ -99,11 +99,10 @@ func body_Position_On_Strairs (body, totalHeight, globalPosition, ZTop, ZBottom)
 func _area_sides():
 	#print(playerZ )
 	if playerZ > areaZHieght && not player.velocity.x == 0 && not isOnStairs && playerZ < ZFloor:
-		player.velocity.x = -player.velocity.x /1.5
-	if playerZ > areaZHieght && not player.velocity.y == 0 && not isOnStairs && playerZ < ZFloor:
-		player.velocity.y = -player.velocity.y /1.5
+		player.velocity.x = -player.velocity.x /1.3
 
 func colliderException():
 	if playerZ <= colliderZ and ZFloor <= colliderZ or hasJumped == true:
 		PhysicsServer2D.body_add_collision_exception(colliderBody, player.get_rid())
+	else: PhysicsServer2D.body_remove_collision_exception(colliderBody, player.get_rid())
 
