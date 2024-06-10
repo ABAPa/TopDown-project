@@ -8,11 +8,11 @@ class_name PlayerJump
 
 var playerZ : float = 0
 var ZFloor : float = 0
-var newMaxJumpHiegt : float = -80
+var newMaxJumpHiegt : float = -100
 
 @export var ZSpeed : float = -3
 @export var ZGravity : float = 3
-@export var maxJumpHiegt : float = -80
+@export var maxJumpHiegt : float = -100
 
 var ZFall : bool = false # gravity is on/off
 var isOnPlatform : bool = true #tracks the number of platforms (PlatformTrigger area2ds) the player is on

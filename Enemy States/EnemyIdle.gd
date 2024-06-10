@@ -4,6 +4,7 @@ class_name EnemyIdle
 @export var enemy : CharacterBody2D
 @export var moveSpeed : float = 30
 @onready var enemy_follow = $"../EnemyFollow"
+@onready var animated_sprite_2d = $"../../AnimatedSprite2D"
 
 var moveDirection : Vector2
 var wanderTime : float
@@ -25,6 +26,12 @@ func Update(delta : float):
 func PhysicsUpdate(delta : float):
 	if enemy:
 		enemy.velocity = moveDirection * moveSpeed
+	
+	if moveSpeed == 0:
+		animated_sprite_2d.play("idle")
+	else:
+		animated_sprite_2d.play("walk")
+	
 	
 	var direction = enemy.playerEnemyDifference()
 	
