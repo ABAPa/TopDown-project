@@ -20,7 +20,6 @@ var hasJumped : bool = false #has jumped, has not reached jump apex yet
 var isOnStairs : bool = false #is on stairs trigger area2d
 var areaZHieght : float # the Zhieght of the whole area (building or platform) a player is in the area2d of
 
-var isBehindPlatform : bool = false #if player is behind or on top of the whole area they are in
 var isInArea : bool
 
 var colliderBody : RID 
@@ -40,9 +39,7 @@ func _ready():
 	await get_tree().create_timer(0.1).timeout
 	ZFloors.erase(0)
 func _process(delta):
-	if playerZ <= areaZHieght or isInColliderArea == true && not isBehindPlatform:
-		player.z_index = 6
-	else: player.z_index = 5
+	Z_sort()
 	#print(playerZ, " playerZ", ZFloors.min(), " ZFloors", isOnPlatform)
 	#print(ZFloor)
 	if isOnStairs: 
@@ -64,7 +61,7 @@ func handleJump(delta : float) -> void:
 		playerZ += ZSpeed #add zspeed which is negative to make player go up
 		player.position.y += ZSpeed #apply equally to the player.y
 		
-func platform_Check():
+func platform_Check(): 
 	if not ZFloors.is_empty() and playerZ == ZFloors.min():
 		ZFloor= playerZ
 		isOnPlatform = true
@@ -83,7 +80,6 @@ func platform_Check():
 		playerZ += ZGravity
 		player.position.y += ZGravity
 		
-	
 func change_States():
 	var movementVector = Vector2(input_handler.getPlayerMove(), input_handler.getPlayerMoveFB())
 	if movementVector.length() > 0:
@@ -102,7 +98,11 @@ func _area_sides():
 		player.velocity.x = -player.velocity.x /1.3
 
 func colliderException():
-	if playerZ <= colliderZ and ZFloor <= colliderZ or hasJumped == true:
+	if playerZ <= colliderZ or hasJumped == true or ZFall == true && ZFloors.is_empty():
 		PhysicsServer2D.body_add_collision_exception(colliderBody, player.get_rid())
 	else: PhysicsServer2D.body_remove_collision_exception(colliderBody, player.get_rid())
 
+func Z_sort():
+	if playerZ <= areaZHieght or ZFloors.is_empty() && not ZFloors.min() == areaZHieght:
+		player.z_index = 6
+	else: player.z_index = 5
