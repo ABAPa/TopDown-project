@@ -44,8 +44,6 @@ func _process(delta):
 	#print(ZFloor)
 	if isOnStairs: 
 		body_Position_On_Strairs(player, totalHeight, globalPosition, ZTop, ZBottom)
-	if isInArea == true:
-		_area_sides()
 	if isInColliderArea == true:
 		colliderException()
 	
@@ -91,11 +89,6 @@ func body_Position_On_Strairs (body, totalHeight, globalPosition, ZTop, ZBottom)
 		var proportion = distanceToBody / totalHeight
 		var bodyZ = lerp(ZBottom, ZTop, proportion)
 		return bodyZ
-
-func _area_sides():
-	#print(playerZ )
-	if playerZ > areaZHieght && not player.velocity.x == 0 && not isOnStairs && playerZ < ZFloor:
-		player.velocity.x = -player.velocity.x /1.3
 
 func colliderException():
 	if playerZ <= colliderZ or hasJumped == true or ZFall == true && ZFloors.is_empty():
