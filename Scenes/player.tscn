@@ -446,7 +446,6 @@ canMove = true
 [node name="PlayerJump" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("15_sd326")
 player = NodePath("../..")
-maxJumpHiegt = -85.0
 canMove = true
 
 [connection signal="timeout" from="PlayerStateMachine/PlayerDodgeRoll/RollCooldown" to="PlayerStateMachine/PlayerDodgeRoll" method="_on_roll_cooldown_timeout"]
