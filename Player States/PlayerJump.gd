@@ -39,6 +39,10 @@ func _ready():
 	await get_tree().create_timer(0.1).timeout
 	ZFloors.erase(0)
 func _process(delta):
+	if playerZ > 50:
+		print("sdasdadsdsds")
+		input_handler.moveEnabled = false
+		#handle death
 	Z_sort()
 	#print(playerZ, " playerZ", ZFloors.min(), " ZFloors", isOnPlatform)
 	#print(ZFloor)
