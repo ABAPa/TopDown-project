@@ -1,7 +1,7 @@
 [gd_scene load_steps=60 format=3 uid="uid://buhk4d1h2hpby"]
 
-[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_qjcbd"]
-[ext_resource type="Script" path="res://Scripts/Input_Handler.gd" id="2_1e4h0"]
+[ext_resource type="Script" path="res://Player Scripts/Player.gd" id="1_qjcbd"]
+[ext_resource type="Script" path="res://Player Scripts/Input_Handler.gd" id="2_1e4h0"]
 [ext_resource type="Texture2D" uid="uid://cql4p40xf3wkk" path="res://animations&sprite/AttackFrontTemp.png" id="2_cmlx6"]
 [ext_resource type="Texture2D" uid="uid://bpui8e1mhbof5" path="res://animations&sprite/AttackSideTemp.png" id="3_o5qsx"]
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="4_jde48"]
@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cp36hcddk8sjg" path="res://Test Assets/Button Assets/control.tscn" id="9_6duj2"]
 [ext_resource type="Texture2D" uid="uid://cw74v7t8kqjmy" path="res://animations&sprite/RunBackTemp.png" id="9_n4esr"]
 [ext_resource type="Script" path="res://Player States/PlayerJump.gd" id="15_sd326"]
-[ext_resource type="Script" path="res://Scenes/GUI.gd" id="19_efjvm"]
+[ext_resource type="Script" path="res://Scripts/GUI.gd" id="19_efjvm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_irqhm"]
 atlas = ExtResource("2_cmlx6")

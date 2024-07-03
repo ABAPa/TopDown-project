@@ -9,9 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://bhywsuw77ltko" path="res://Test Assets/Texture/TX Props.png" id="6_ij2nl"]
 [ext_resource type="Texture2D" uid="uid://tl7t5hqpeu6k" path="res://Test Assets/Texture/TX Struct.png" id="7_e3rqr"]
 [ext_resource type="PackedScene" uid="uid://cgqo3vv50wds5" path="res://Scenes/test_enemy.tscn" id="8_is1k6"]
-[ext_resource type="Script" path="res://Area Scripts/Area2D2.gd" id="9_jqwwc"]
+[ext_resource type="Script" path="res://Scenes/Area2D2.gd" id="9_jqwwc"]
 [ext_resource type="Script" path="res://Area Scripts/PlatformTrigger.gd" id="10_5tpcr"]
-[ext_resource type="Script" path="res://Area Scripts/Area2D.gd" id="10_gc2tv"]
+[ext_resource type="Script" path="res://Scenes/Area2D.gd" id="10_gc2tv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_58u7m"]
 texture = ExtResource("1_yduqd")

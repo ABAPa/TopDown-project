@@ -1,8 +1,8 @@
 extends CanvasLayer
 var InvSize = 16
 var itemsLoad = [
-"res://Items(Resourses)/pngs/Sword.png",
-"res://Items(Resourses)/pngs/Axe.png"
+	"res://Items(Resourses)/Axe.tres",
+	"res://Items(Resourses)/Sword.tres"
 ]
 func _ready():
 	self.visible = false
@@ -13,7 +13,7 @@ func _ready():
 	for i in itemsLoad.size():
 		var item := InventoryItem.new()
 		item.init(load(itemsLoad[i]))
-		%inv.add_child(i).add_child(item)
+		%Inv.get_child(i).add_child(item)
 func _process(delta):
 	if Input.is_action_just_pressed("Inventory"):
 		self.visible = !self.visible

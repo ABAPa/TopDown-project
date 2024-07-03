@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://dkfvnlcvwh7lw"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dkfvnlcvwh7lw"]
 
 [ext_resource type="Script" path="res://Items(Resourses)/ItemData.gd" id="1_d12q7"]
+[ext_resource type="Texture2D" uid="uid://crk0xm6vo3pbw" path="res://Items(Resourses)/pngs/Axe.png" id="2_5k56x"]
 
 [resource]
 script = ExtResource("1_d12q7")
 type = 4
-itemName = "Axe"
+item = "Axe"
 description = "This is a basic metal sword!
 
 B: Strength: requires 12
 "
+texture = ExtResource("2_5k56x")

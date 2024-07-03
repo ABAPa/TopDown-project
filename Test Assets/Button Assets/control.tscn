@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://eurp7wc8pcu3" path="res://Test Assets/Button Assets/ButtonTheme.tres" id="1_p318l"]
 [ext_resource type="FontFile" uid="uid://mv7uv4it164r" path="res://Test Assets/Button Assets/MinimalPixel v2.ttf" id="2_qrgio"]
-[ext_resource type="Script" path="res://Button.gd" id="3_7sggv"]
+[ext_resource type="Script" path="res://Player Scripts/Button.gd" id="3_7sggv"]
 
 [node name="Control" type="Control"]
 layout_mode = 3

@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Enemy States/EnemyIdle.gd" id="3_tb4t0"]
 [ext_resource type="Script" path="res://Enemy States/EnemyFollow.gd" id="5_ibj1k"]
 [ext_resource type="Script" path="res://Enemy States/EnemyAttack.gd" id="6_eopwy"]
-[ext_resource type="Script" path="res://Scenes/Label.gd" id="7_lhywg"]
+[ext_resource type="Script" path="res://Enemy States/Label.gd" id="7_lhywg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7q56r"]
 atlas = ExtResource("2_nk4pt")

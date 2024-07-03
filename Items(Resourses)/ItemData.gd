@@ -1,5 +1,5 @@
 class_name ItemData
-extends Node
+extends Resource
 
 enum Type {HEAD, CHEST, LEGS, ARMS, WEAPON, ACCESSORY, CONSUMABLE, MAIN}
 
