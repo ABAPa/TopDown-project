@@ -8,6 +8,8 @@ var player : Player
 
 func _ready():
 	player = get_tree().get_first_node_in_group("Player")
+	ray_cast_2d.enabled = true
+	ray_cast_2d.collide_with_areas = true
 
 func _physics_process(_delta):
 	velocity.normalized()
@@ -20,7 +22,7 @@ func playerEnemyDifference() -> Vector2:
 
 func handleLineOfSight():
 	ray_cast_2d.target_position = playerEnemyDifference()
-	if ray_cast_2d.get_collider() == player:
+	if ray_cast_2d.is_colliding() && ray_cast_2d.get_collider().name == "HurtBox":
 		enemy_follow.lineOfSight = true
 	else:
 		enemy_follow.lineOfSight = false

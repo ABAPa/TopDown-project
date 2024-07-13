@@ -1,6 +1,10 @@
-extends Area2D
+extends StaticBody2D
 class_name  PlatformCollider
 
+@export var colliderZHieght : float
+
+
+"""
 var boddiesInScene : Array = ["Player"]
 @export var colliderZ : float
 var collider
@@ -20,4 +24,4 @@ func off_collider(body):
 		var child = body.get_node("PlayerStateMachine/PlayerJump")
 		# Send the constant to the body's script
 		PhysicsServer2D.body_remove_collision_exception(collider.get_rid(), body.get_rid())
-		child.isInColliderArea = false
+		child.isInColliderArea = false"""

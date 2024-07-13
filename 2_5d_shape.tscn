@@ -1,0 +1,33 @@
+[gd_scene load_steps=8 format=3 uid="uid://x5sxvo0uuon8"]
+
+[ext_resource type="Script" path="res://Area Scripts/2-5D_Shape.gd" id="1_hs31j"]
+[ext_resource type="Script" path="res://Area Scripts/PlatformTrigger.gd" id="2_8asbo"]
+[ext_resource type="Script" path="res://Area Scripts/TileMapZSort.gd" id="3_pyms3"]
+[ext_resource type="Script" path="res://Area Scripts/PlatformBody.gd" id="3_vyqgh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wndw8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yoloo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wq05"]
+
+[node name="2-5D_Shape" type="Node2D"]
+script = ExtResource("1_hs31j")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_8asbo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_wndw8")
+
+[node name="Area2D2" type="Area2D" parent="."]
+script = ExtResource("3_pyms3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource("RectangleShape2D_yoloo")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+script = ExtResource("3_vyqgh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_5wq05")

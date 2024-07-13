@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://buhk4d1h2hpby"]
+[gd_scene load_steps=66 format=3 uid="uid://buhk4d1h2hpby"]
 
 [ext_resource type="Script" path="res://Player Scripts/Player.gd" id="1_qjcbd"]
 [ext_resource type="Script" path="res://Player Scripts/Input_Handler.gd" id="2_1e4h0"]
@@ -13,12 +13,23 @@
 [ext_resource type="Script" path="res://Player States/PlayerRun.gd" id="7_dxtb1"]
 [ext_resource type="Script" path="res://Player States/PlayerIdle.gd" id="7_h2qu1"]
 [ext_resource type="Texture2D" uid="uid://b5actctvka5ox" path="res://animations&sprite/RunSideTemp.png" id="8_3gfkt"]
+[ext_resource type="Texture2D" uid="uid://vm2skw32cy15" path="res://icon.svg" id="8_kn5hq"]
 [ext_resource type="Script" path="res://Player States/PlayerAttack.gd" id="8_utxya"]
 [ext_resource type="Script" path="res://Player States/PlayerDodgeRoll.gd" id="8_y22sx"]
 [ext_resource type="PackedScene" uid="uid://cp36hcddk8sjg" path="res://Test Assets/Button Assets/control.tscn" id="9_6duj2"]
+[ext_resource type="Script" path="res://Scenes/Shadow.gd" id="9_7a8jn"]
 [ext_resource type="Texture2D" uid="uid://cw74v7t8kqjmy" path="res://animations&sprite/RunBackTemp.png" id="9_n4esr"]
+[ext_resource type="Script" path="res://Area Scripts/PlatformBodyDetector.gd" id="10_c00jw"]
 [ext_resource type="Script" path="res://Player States/PlayerJump.gd" id="15_sd326"]
 [ext_resource type="Script" path="res://Scripts/GUI.gd" id="19_efjvm"]
+[ext_resource type="Script" path="res://Scenes/WeaponPanel.gd" id="23_o7u8f"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dhq60"]
+radius = 15.0
+height = 42.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ilkr8"]
+size = Vector2(10, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_irqhm"]
 atlas = ExtResource("2_cmlx6")
@@ -335,43 +346,21 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_usgfa"]
-size = Vector2(12, 32)
+size = Vector2(13, 2.52)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 5
 position = Vector2(142, 124)
 script = ExtResource("1_qjcbd")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -9.49999)
-sprite_frames = SubResource("SpriteFrames_jo3va")
-animation = &"idle"
-autoplay = "idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -1)
-shape = SubResource("RectangleShape2D_usgfa")
-
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
-zoom = Vector2(3, 3)
-script = ExtResource("4_jde48")
-player = NodePath("..")
-
-[node name="BoxContainer" type="BoxContainer" parent="Camera2D"]
-offset_left = -191.0
-offset_top = -103.0
-offset_right = 191.0
-offset_bottom = 112.0
-
-[node name="Control" parent="Camera2D/BoxContainer" instance=ExtResource("9_6duj2")]
-layout_mode = 2
-
-[node name="Input_Handler" type="Node" parent="."]
-script = ExtResource("2_1e4h0")
-
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
 script = ExtResource("5_i13w0")
 initialState = NodePath("PlayerIdle")
+
+[node name="PlayerJump" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("15_sd326")
+player = NodePath("../..")
+canMove = true
 
 [node name="PlayerIdle" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("7_h2qu1")
@@ -403,10 +392,57 @@ script = ExtResource("8_utxya")
 player = NodePath("../..")
 canMove = true
 
-[node name="PlayerJump" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
-script = ExtResource("15_sd326")
-player = NodePath("../..")
-canMove = true
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1, 14)
+scale = Vector2(0.140625, 0.0625)
+texture = ExtResource("8_kn5hq")
+script = ExtResource("9_7a8jn")
+
+[node name="PlatformBodyDetector" type="Area2D" parent="."]
+script = ExtResource("10_c00jw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformBodyDetector"]
+position = Vector2(1, 15)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_dhq60")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_ilkr8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -9.49999)
+sprite_frames = SubResource("SpriteFrames_jo3va")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 13.26)
+shape = SubResource("RectangleShape2D_usgfa")
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+zoom = Vector2(3, 3)
+script = ExtResource("4_jde48")
+player = NodePath("..")
+
+[node name="BoxContainer" type="BoxContainer" parent="Camera2D"]
+offset_left = -191.0
+offset_top = -103.0
+offset_right = 191.0
+offset_bottom = 112.0
+
+[node name="Control" parent="Camera2D/BoxContainer" instance=ExtResource("9_6duj2")]
+layout_mode = 2
+
+[node name="Input_Handler" type="Node" parent="."]
+script = ExtResource("2_1e4h0")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("19_efjvm")
@@ -416,6 +452,11 @@ offset_left = 192.0
 offset_top = 120.0
 offset_right = 960.0
 offset_bottom = 504.0
+
+[node name="WeaponPanel" type="PanelContainer" parent="GUI"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("23_o7u8f")
 
 [node name="Inv" type="GridContainer" parent="GUI"]
 unique_name_in_owner = true

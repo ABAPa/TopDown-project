@@ -26,7 +26,7 @@ func _process(delta):
 func _physics_process(delta):
 	if currentState:
 		currentState.PhysicsUpdate(delta)
-	player_jump.platform_Check()
+	player_jump.platform_Check(delta)
 
 func onChildTransition(state, newStateName):
 	if state != currentState:

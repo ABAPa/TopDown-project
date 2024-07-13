@@ -1,7 +1,7 @@
 extends Area2D
 class_name StairsTrigger
 
-@export var ZTop : float
+"""@export var ZTop : float
 @export var ZBottom : float
 var boddiesInScene : Array = ["Player"] # add all bodies in scene that need to stand on this array 
 @onready var collisionShape = get_child(0)
@@ -15,7 +15,7 @@ func on_Stairs(body):
 		
 		var child = body.get_node("PlayerStateMachine/PlayerJump")
 		var bodyZ = child.body_Position_On_Strairs(body, totalHeight, globalPosition, ZTop, ZBottom)
-		if child.playerZ <= bodyZ:
+		if child.positionZ <= bodyZ:
 			child.ZFloor = bodyZ
 			child.totalHeight = totalHeight
 			child.globalPosition = globalPosition
@@ -31,6 +31,6 @@ func off_Stairs(body):
 		var bodyZ = child.body_Position_On_Strairs(body, totalHeight, globalPosition, ZTop, ZBottom)
 		child.ZFloors.erase(bodyZ)
 		child.isOnStairs = false
-		child.isOnPlatform -= 1
+		child.isOnPlatform -= 1"""
 		
 

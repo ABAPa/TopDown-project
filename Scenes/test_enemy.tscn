@@ -273,7 +273,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vxtgl"]
-radius = 6.0
+radius = 2.23607
 
 [sub_resource type="LabelSettings" id="LabelSettings_tfy6i"]
 font_size = 8
@@ -282,7 +282,7 @@ font_size = 8
 script = ExtResource("1_pqrau")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-collision_mask = 3
+collision_mask = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_x107h")
@@ -292,6 +292,7 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_vxtgl")
+disabled = true
 
 [node name="Enemy State Machine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
 script = ExtResource("2_i0pt6")

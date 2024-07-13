@@ -35,6 +35,6 @@ func handleIdleSwitch():
 		else: Transitioned.emit(self, "PlayerDodgeRoll")
 	if input_handler.getPlayerAttack() && player_state_machine.checkIfCanAttack():
 		Transitioned.emit(self, "PlayerAttack")
-	if input_handler.getPlayerJump() && player_state_machine.checkIfCanJump():
+	if input_handler.getPlayerJump() && player_state_machine.checkIfCanJump() && player_jump.ZFall == false:
 		player_jump.hasJumped = true
 		Transitioned.emit(self, "PlayerJump")

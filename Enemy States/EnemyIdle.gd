@@ -35,6 +35,6 @@ func PhysicsUpdate(delta : float):
 	
 	var direction = enemy.playerEnemyDifference()
 	
-	if direction.length() < 100 && enemy_follow.lineOfSight == true:
+	if direction.length() < 200 && enemy_follow.lineOfSight == true:
 		EnemyTransitioned.emit(self, "EnemyFollow")
 	else: return
