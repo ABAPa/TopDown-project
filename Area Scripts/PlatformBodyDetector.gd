@@ -55,11 +55,3 @@ func collision_exception(physicsNode : Node, platformHeight : float, bodyRID : R
 			PhysicsServer2D.body_add_collision_exception(bodyRID, parent.get_rid()) 
 		else: 
 			PhysicsServer2D.body_remove_collision_exception(bodyRID, parent.get_rid())
-func in_wall_area(platformHeight : float) -> bool:
-	return physicsNode.determine_closest_below(physicsNode.positionZ, physicsNode.ZFloors) > platformHeight
-"""func is_touching_wall(objectPosition, rect2, platformBody):
-	var absolute = rect2.abs()
-	if absolute.has_point(objectPosition):
-		print("on")
-	else: print(objectPosition, absolute.position, platformBody.position)"""
-	#return colliderBoxPosition.has_point(objectPosition)

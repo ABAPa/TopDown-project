@@ -22,7 +22,9 @@ func playerEnemyDifference() -> Vector2:
 
 func handleLineOfSight():
 	ray_cast_2d.target_position = playerEnemyDifference()
-	if ray_cast_2d.is_colliding() && ray_cast_2d.get_collider().name == "HurtBox":
+	if ray_cast_2d.is_colliding() && ray_cast_2d.get_collider().name == "HurtboxHandler":
 		enemy_follow.lineOfSight = true
 	else:
 		enemy_follow.lineOfSight = false
+
+

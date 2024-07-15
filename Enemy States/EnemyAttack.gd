@@ -3,20 +3,27 @@ extends EnemyState
 @export var enemy : CharacterBody2D
 @onready var enemy_follow = $"../EnemyFollow"
 @onready var animated_sprite_2d = $"../../AnimatedSprite2D"
+
 var isAttacking
 var enemyLungeSpeed : float = 10
 var backingAway : bool = false
+
+var newDamage = 1
+
+@onready var hitbox_handler = $"../../HitboxHandler"
+
 func Enter():
-	pass
+	set_damage(newDamage)
 
 func PhysicsUpdate(delta : float):
 	handleEnemyAttack()
 
+func set_damage(new_damage : int) -> void:
+	hitbox_handler.set_damage(new_damage)
 
 func handleEnemyAttack():
 	var direction = enemy.playerEnemyDifference()
 	if direction.length() < 50 && enemy_follow.lineOfSight == true && backingAway == false:
-		print("ahhhhhhhhh")
 		isAttacking = true
 		enemy.velocity = Vector2.ZERO
 		#enemy.velocity = direction.normalized() * enemyLungeSpeed
@@ -37,3 +44,7 @@ func handleEnemyAttack():
 		EnemyTransitioned.emit(self, "EnemyIdle")
 	else: return
 	
+
+
+func _on_hitbox_handler_attack_hit():
+	print("attack hit!")

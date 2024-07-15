@@ -14,13 +14,13 @@ func _ready():
 	parentShape = self.get_parent()
 func on_Structure_Area(area):
 	var parent = area.get_parent()
-	if parent.name in boddiesInScene && area.name == "HurtBox":
+	if parent.name in boddiesInScene && area.name == "HurtboxHandler":
 		var child = parent.get_child(0).get_child(0)
 		child.shapeDictionaries.append(parentShape.shapeDictionary)
 
 func off_Structure_Area(area):
 	var parent = area.get_parent()
-	if parent.name in boddiesInScene && area.name == "HurtBox":
+	if parent.name in boddiesInScene && area.name == "HurtboxHandler":
 		var child = parent.get_child(0).get_child(0)
 		child.shapeDictionaries.erase(parentShape.shapeDictionary)
 

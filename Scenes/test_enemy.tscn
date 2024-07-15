@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cgqo3vv50wds5"]
+[gd_scene load_steps=49 format=3 uid="uid://cgqo3vv50wds5"]
 
 [ext_resource type="Script" path="res://Enemy States/test_enemy.gd" id="1_pqrau"]
 [ext_resource type="Script" path="res://Enemy States/Enemy State Machine.gd" id="2_i0pt6"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Enemy States/EnemyFollow.gd" id="5_ibj1k"]
 [ext_resource type="Script" path="res://Enemy States/EnemyAttack.gd" id="6_eopwy"]
 [ext_resource type="Script" path="res://Enemy States/Label.gd" id="7_lhywg"]
+[ext_resource type="PackedScene" uid="uid://cprbsdqdxhccl" path="res://Handler Scenes/Hitbox_handler.tscn" id="10_ye8um"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7q56r"]
 atlas = ExtResource("2_nk4pt")
@@ -278,11 +279,15 @@ radius = 2.23607
 [sub_resource type="LabelSettings" id="LabelSettings_tfy6i"]
 font_size = 8
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kp7u6"]
+radius = 7.07107
+
 [node name="Test Enemy" type="CharacterBody2D"]
 script = ExtResource("1_pqrau")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collision_mask = 2
+collide_with_areas = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_x107h")
@@ -318,3 +323,14 @@ offset_bottom = -13.0
 label_settings = SubResource("LabelSettings_tfy6i")
 horizontal_alignment = 1
 script = ExtResource("7_lhywg")
+
+[node name="HitboxHandler" parent="." instance=ExtResource("10_ye8um")]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitboxHandler" index="0"]
+shape = SubResource("CircleShape2D_kp7u6")
+
+[connection signal="attack_hit" from="HitboxHandler" to="Enemy State Machine/EnemyAttack" method="_on_hitbox_handler_attack_hit"]
+
+[editable path="HitboxHandler"]

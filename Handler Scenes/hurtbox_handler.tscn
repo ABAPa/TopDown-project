@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0b20uc2nmfk1"]
+
+[ext_resource type="Script" path="res://Handler Scenes/Scripts/HurtboxHandler.gd" id="1_ombe3"]
+
+[node name="HurtboxHandler" type="Area2D"]
+script = ExtResource("1_ombe3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="InvulnTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="InvulnTimer" to="." method="_on_invuln_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cfl7vwt1k20yv"]
+[gd_scene load_steps=27 format=3 uid="uid://cfl7vwt1k20yv"]
 
 [ext_resource type="PackedScene" uid="uid://buhk4d1h2hpby" path="res://Scenes/player.tscn" id="1_esbgi"]
 [ext_resource type="Texture2D" uid="uid://bxn3q04en0fin" path="res://animations&sprite/spritesheet/Sprite-0002.png" id="1_yduqd"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bhywsuw77ltko" path="res://Test Assets/Texture/TX Props.png" id="6_ij2nl"]
 [ext_resource type="Texture2D" uid="uid://tl7t5hqpeu6k" path="res://Test Assets/Texture/TX Struct.png" id="7_e3rqr"]
 [ext_resource type="PackedScene" uid="uid://cgqo3vv50wds5" path="res://Scenes/test_enemy.tscn" id="8_is1k6"]
-[ext_resource type="Script" path="res://Area Scripts/PlatformTrigger.gd" id="10_5tpcr"]
+[ext_resource type="Script" path="res://2.5D Shape Scripts/PlatformTrigger.gd" id="10_5tpcr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_58u7m"]
 texture = ExtResource("1_yduqd")
@@ -1100,8 +1100,23 @@ script/source = "extends \"res://Area Scripts/TileMapZSort.gd\"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v20yc"]
 size = Vector2(58, 61)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jqh0t"]
-size = Vector2(1759, 982)
+[sub_resource type="GDScript" id="GDScript_fkk3u"]
+script/source = "extends \"res://Area Scripts/PlatformTrigger.gd\"
+
+"
+
+[sub_resource type="GDScript" id="GDScript_tikne"]
+script/source = "extends \"res://Area Scripts/PlatformTrigger.gd\"
+
+"
+
+[sub_resource type="GDScript" id="GDScript_c8fwj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mjklk"]
+size = Vector2(160, 101)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lcc35"]
+size = Vector2(186, 126)
 
 [node name="World" type="Node2D"]
 scale = Vector2(0.993658, 1.04594)
@@ -1165,11 +1180,38 @@ shape = SubResource("RectangleShape2D_v20yc")
 
 [node name="triggers" type="Node" parent="."]
 
-[node name="PlatformTrigger" type="Area2D" parent="triggers"]
+[node name="Area2D3" type="Area2D" parent="triggers"]
+visible = false
 script = ExtResource("10_5tpcr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="triggers/PlatformTrigger"]
-position = Vector2(869.5, 112)
-shape = SubResource("RectangleShape2D_jqh0t")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="triggers/Area2D3"]
+position = Vector2(-1, 0)
+polygon = PackedVector2Array(641, 128, 673, 128, 673, 112, 721, 112, 721, 96, 849, 96, 849, 112, 897, 112, 897, 128, 913, 128, 913, 144, 929, 144, 929, 160, 1009, 160, 1009, 144, 1089, 144, 1089, 128, 1137, 128, 1137, 112, 1153, 112, 1153, 96, 1153, 0, 1025, 0, 1137, -80, 1137, -96, 1169, -96, 1169, -112, 1185, -112, 1185, -160, 1201, -160, 1201, -176, 1121, -176, 1121, -160, 1089, -160, 1089, -144, 1073, -144, 1073, -96, 1089, -96, 1089, -80, 1137, -80, 1025, 0, 1025, -16, 929, -16, 929, -64, 913, -64, 913, -96, 897, -96, 897, -144, 945, -144, 945, -160, 961, -160, 961, -176, 993, -176, 993, -192, 1025, -193, 1025, -208, 1185, -208, 1185, -192, 1217, -192, 1217, -176, 1265, -176, 1265, -160, 1281, -160, 1281, -144, 1297, -144, 1297, -80, 1281, -80, 1281, -64, 1265, -64, 1265, -48, 1249, -48, 1249, -32, 1233, -32, 1233, -16, 1217, -16, 1217, 0, 1201, 0, 1201, 96, 1201, 112, 1265, 112, 1265, 128, 1297, 128, 1297, 144, 1313, 144, 1313, 240, 1329, 240, 1329, 288, 1281, 288, 1281, 304, 1233, 304, 1233, 256, 1169, 256, 1169, 272, 1153, 272, 1153, 288, 1073, 288, 1073, 272, 1057, 272, 1057, 256, 1041, 256, 1041, 240, 1025, 240, 1025, 224, 1009, 224, 1009, 208, 881, 208, 881, 192, 865, 192, 865, 176, 849, 176, 849, 192, 785, 192, 785, 208, 689, 208, 689, 192, 657, 192, 657, 176, 641, 176)
+
+[node name="Area2D2" type="Area2D" parent="triggers"]
+script = SubResource("GDScript_fkk3u")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="triggers/Area2D2"]
+polygon = PackedVector2Array(-128, -64, -128, 91, -32, 91, -32, 341, 512, 341, 510, 40, 10, 40, 10, -138, -379, -138, -379, 340, -34, 341, -34, 192, -192, 192, -192, 224, -256, 224, -256, 192, -288, 192, -288, -64)
+
+[node name="Area2D" type="Area2D" parent="triggers"]
+script = SubResource("GDScript_tikne")
+ZHeight = -60.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="triggers/Area2D"]
+polygon = PackedVector2Array(-288, 118, -32, 118, -32, 32, -32, 32, -128, 32, -128, -64, -288, -64)
 
 [node name="Node" type="Node" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Node"]
+script = SubResource("GDScript_c8fwj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node/Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/Area2D/StaticBody2D"]
+position = Vector2(-112, 141.5)
+shape = SubResource("RectangleShape2D_mjklk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/Area2D"]
+position = Vector2(-112, 140)
+shape = SubResource("RectangleShape2D_lcc35")
