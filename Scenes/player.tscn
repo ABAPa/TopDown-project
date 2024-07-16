@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://buhk4d1h2hpby"]
+[gd_scene load_steps=71 format=3 uid="uid://buhk4d1h2hpby"]
 
 [ext_resource type="Script" path="res://Player Scripts/Player.gd" id="1_qjcbd"]
 [ext_resource type="Script" path="res://Player Scripts/Input_Handler.gd" id="2_1e4h0"]
@@ -25,6 +25,9 @@
 [ext_resource type="Script" path="res://Scripts/GUI.gd" id="19_efjvm"]
 [ext_resource type="Script" path="res://Scenes/WeaponPanel.gd" id="23_o7u8f"]
 [ext_resource type="Script" path="res://Handler Scenes/Scripts/HealthHandler.gd" id="25_yn357"]
+[ext_resource type="Script" path="res://Scenes/HealthBar.gd" id="26_4o75j"]
+[ext_resource type="Texture2D" uid="uid://dstpl2bkn2ukg" path="res://Test Assets/random assets/sdaads.png" id="26_gb247"]
+[ext_resource type="Texture2D" uid="uid://cjwlxbcsb2q7g" path="res://Test Assets/random assets/aaaad.png" id="27_vfcsi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v4nf8"]
 size = Vector2(10, 32)
@@ -446,6 +449,7 @@ layout_mode = 2
 script = ExtResource("2_1e4h0")
 
 [node name="GUI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("19_efjvm")
 
 [node name="Panel" type="Panel" parent="GUI"]
@@ -469,6 +473,28 @@ columns = 4
 
 [node name="HealthHandler" type="Node" parent="."]
 script = ExtResource("25_yn357")
+
+[node name="GamePlayUI" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="TextureProgressBar" parent="GamePlayUI" node_paths=PackedStringArray("healthHandler")]
+offset_left = 943.0
+offset_top = 22.0
+offset_right = 1135.0
+offset_bottom = 62.0
+texture_under = ExtResource("26_gb247")
+texture_progress = ExtResource("27_vfcsi")
+script = ExtResource("26_4o75j")
+healthHandler = NodePath("../../HealthHandler")
+
+[node name="ManaBar" type="ProgressBar" parent="GamePlayUI"]
+visible = false
+offset_right = 4.0
+offset_bottom = 27.0
+
+[node name="StaminaBar" type="ProgressBar" parent="GamePlayUI"]
+visible = false
+offset_right = 4.0
+offset_bottom = 27.0
 
 [connection signal="timeout" from="PlayerStateMachine/PlayerDodgeRoll/RollCooldown" to="PlayerStateMachine/PlayerDodgeRoll" method="_on_roll_cooldown_timeout"]
 

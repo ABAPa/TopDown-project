@@ -5,6 +5,8 @@ extends Node
 
 var current_health : int = 0
 
+signal healthChanged
+
 func _ready():
 	set_current_health(max_health)
 
@@ -13,6 +15,7 @@ func get_current() -> int:
 
 func set_current_health(new_health : int) -> void:
 	current_health = new_health
+	healthChanged.emit()
 
 func set_max_health(value : int) -> void:
 	if value != 0:
@@ -24,6 +27,7 @@ func set_max_health(value : int) -> void:
 func apply_damage(damage_value : int) -> void:
 	current_health -= damage_value
 	handle_health()
+	healthChanged.emit()
 
 func apply_healing(healing_value : int) -> void:
 	current_health += healing_value

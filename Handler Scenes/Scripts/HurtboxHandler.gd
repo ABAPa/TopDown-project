@@ -22,6 +22,5 @@ func knocked_down_invuln(knocked_invuln_time : float)-> void:
 	collision_shape_2d.set_deferred("disabled", true)
 	invuln_timer.start(knocked_invuln_time)
 
-
 func _on_invuln_timer_timeout():
 	collision_shape_2d.set_deferred("disabled", false)

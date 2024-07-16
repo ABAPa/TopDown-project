@@ -21,3 +21,6 @@ func getPlayerRoll() -> bool:
 
 func getPlayerAttack() -> bool:
 	return Input.is_action_just_pressed("Attack")
+
+func getPlayerInteract() -> bool:
+	return Input.is_action_just_pressed("Interact")
